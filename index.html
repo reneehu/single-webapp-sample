@@ -1,16 +1,19 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html >
 <head>
 	<meta charset="utf-8">
 	<script src="angular.min.js"></script>
 	<script src="app.js"></script>
-	<title>My first AngularJS App</title>
+	<title>Single web App</title>
 </head>
-<body>
+<body ng-app="myApp">
 	<h1>Single Web Application</h1>
 	<div ng-controller="myCtlr">
-		<input text="text" ng-model="name"><br>
-		my input is: {{name}}
+		<input text="text" 
+			   ng-model="name" 
+		 	   ng-keyup="displayNum();">
+		 <br>
+		my input number is: {{totalNum}}
 	</div>
 </body>
 </html>
