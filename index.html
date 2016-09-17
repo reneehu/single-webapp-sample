@@ -1,11 +1,16 @@
-<!doctype html>
-<!-- Declares meanMapApp as the starting Angular module -->
-<html>
+<!DOCTYPE html>
+<html ng-app="myApp">
 <head>
-    <meta charset="utf-8">
-    <title>Hello Coursera</title>
+	<meta charset="utf-8">
+	<script src="angular.min.js"></script>
+	<script src="app.js"></script>
+	<title>My first AngularJS App</title>
 </head>
 <body>
-<h1>Hello ayheoo</h1>
+	<h1>Single Web Application</h1>
+	<div ng-controller="myCtlr">
+		<input text="text" ng-model="name"><br>
+		my input is: {{name}}
+	</div>
 </body>
 </html>
