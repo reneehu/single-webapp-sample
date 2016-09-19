@@ -8,6 +8,12 @@
     <script src="app.js"></script>
     <style>
       .message { font-size: 1.3em; font-weight: bold; }
+      .green{
+        color: #00FF00;
+      }
+      .red{
+        color: #ff0000;
+      }
     </style>
   </head>
 <body ng-app="LunchCheck">
@@ -21,7 +27,7 @@
          <div class="form-group">
              <button class="btn btn-default" ng-click="displayMsg()">Check If Too Much</button>
          </div>
-         <div class="form-group message">
+         <div class="form-group message" ng-class="validMsg?'green':'red'">
            {{lunchMessage}}
          </div>
    </div>
