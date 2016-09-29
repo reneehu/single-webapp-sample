@@ -45,6 +45,18 @@ function ShoppingListCheckOffService() {
   	  { 
   	  	name: "latte", 
   	  	quantity: 1
+  	  },
+  	   { 
+  	  	name: "Greek yogurt", 
+  	  	quantity: 2 
+  	  },
+  	   	{ 
+  	  	name: "Mongo yogurt", 
+  	  	quantity: 2 
+  	  },
+  	   	   { 
+  	  	name: "vanilla yogurt", 
+  	  	quantity: 2 
   	  }
   	  ] 
 
