@@ -1,82 +1,57 @@
 (function () {
-'use strict';
+	'use strict';
+	angular.module('NarrowItDownApp', [])
+	.controller('NarrowItDownController', NarrowItDownController)
+	.service('MenuSearchService', MenuSearchService);
 
-angular.module('ShoppingListCheckOff', [])
-.controller('ToBuyController', ToBuyController)
-.controller('AlreadyBoughtController', AlreadyBoughtController)
-.service('ShoppingListCheckOffService', ShoppingListCheckOffService);
+	NarrowItDownController.$inject = ['MenuSearchService'];
 
-ToBuyController.$inject = ['ShoppingListCheckOffService'];
-function ToBuyController(ShoppingListCheckOffService) {
-  var toBuy = this;
+	function NarrowItDownController(MenuSearchService) {
+		// var menu = this;
 
-  toBuy.items = ShoppingListCheckOffService.getToBuy();
-  toBuy.moveItem = function (itemIndex) {
-  	ShoppingListCheckOffService.moveItem(itemIndex);
-  };
+		// var promise = MenuSearchService.getMenuItems();
 
-}
+		// promise.then(function (response) {
+		// 	menu.categories = response.data;
+		// })
+		// .catch(function (error) {
+		// 	console.log("Something went terribly wrong.");
+		// });
+
+		// menu.logMenuItems = function (shortName) {
+		// 	var promise = MenuCategoriesService.getMenuForCategory(shortName);
+
+		// 	promise.then(function (response) {
+		// 		console.log(response.data);
+		// 	})
+		// 	.catch(function (error) {
+		// 		console.log(error);
+		// 	})
+		// };
+
+	}
+
+	MenuSearchService.$inject = ['$http']
+	function MenuSearchService($http) {
+		var service = this;
+
+		service.getMatchedMenuItems = function (searchItem) {
+			return $http.get('https://davids-restaurant.herokuapp.com/menu_items.json')
+			.then(
+				function (response) {
+					var foundItems = [];
+					var returnItems = response.data.menu_items;
+					returnItems.forEach(function (item) {
+						if (item.description.toLowerCase().indexOf(searchItem) !== -1) {
+							foundItems.push(item);
+						}
+					});
+					return foundItems;
+				}
+			 )
+		}
+	}
 
 
-AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
-function AlreadyBoughtController(ShoppingListCheckOffService) {
-	var alreadyBought = this;
-	alreadyBought.items = ShoppingListCheckOffService.getbought();
-}
 
-
-function ShoppingListCheckOffService() {
-  var service = this;
-
-  // List of shopping items
-  var toBuyItems = [],
-  	  boughtItems =[],
-
-// create toBuyItems array of object literals
-  	  toBuyItems = [
-  	  { 
-  	  	name: "cookies", 
-  	  	quantity: 10 
-  	  },
-  	  { 
-  	  	name: "yogurt", 
-  	  	quantity: 2 
-  	  },
-  	  { 
-  	  	name: "latte", 
-  	  	quantity: 1
-  	  },
-  	   { 
-  	  	name: "Greek yogurt", 
-  	  	quantity: 2 
-  	  },
-  	   	{ 
-  	  	name: "Mongo yogurt", 
-  	  	quantity: 2 
-  	  },
-  	   	   { 
-  	  	name: "vanilla yogurt", 
-  	  	quantity: 2 
-  	  }
-  	  ] 
-
-// push items to bought array then remove it from to buy array
-  service.moveItem = function (itemIdex) {
-  	boughtItems.push(toBuyItems[itemIdex]);
-    toBuyItems.splice(itemIdex, 1);
-  };
-
-  service.getToBuy = function () {
-    return toBuyItems;
-  };
-
-  service.getbought = function () {
-  	return boughtItems;
-  };
-
-  service.checkTStatus = function () {
-
-  };
-}
-
-})();
+})()
